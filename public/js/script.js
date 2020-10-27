@@ -44,6 +44,7 @@ new Vue({
         axios
             .get("/images")
             .then(function (response) {
+                console.log("axios GET response", response);
                 me.images = response.data;
             })
             .catch(function (err) {
@@ -51,3 +52,6 @@ new Vue({
             });
     },
 });
+
+//image url
+// https://pimento-imageboard.s3.amazonaws.com/CfbyDcJWKbT6cQfZTu8jE1szMiEz1sXb.jpg
