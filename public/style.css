@@ -17,7 +17,7 @@
     bottom: 0;
 } */
 
-#main {
+.image-board {
     /* border: 2px solid grey; */
     font-family: "Titillium Web", sans-serif;
     display: flex;
