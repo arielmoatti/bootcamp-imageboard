@@ -1,9 +1,12 @@
 * {
     box-sizing: border-box;
     margin: 0;
-    background-color: lightslategrey;
+    font-family: "Titillium Web", sans-serif;
 }
 
+body {
+    background-color: lightslategrey;
+}
 /* header {
     display: flex;
     height: 150px;
@@ -19,15 +22,14 @@
 
 .image-board {
     /* border: 2px solid grey; */
-    font-family: "Titillium Web", sans-serif;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    /* justify-content: center; */
 }
 
 .image-piece {
     /* border: 2px solid green; */
-    margin: 30px;
+    margin-top: 20px;
     width: 300px;
     height: 300px;
     /* display: flex;
@@ -35,7 +37,7 @@
     align-items: center; */
 
     display: grid;
-    grid-template-rows: 2fr 1fr;
+    grid-template-rows: 3fr 1fr;
     justify-items: center;
     /* align-content: center; */
     /* justify-content: center; */
@@ -44,13 +46,14 @@
 
 .image-container {
     border-radius: 50%;
-    width: 200px;
-    height: 200px;
+    width: 75%;
+    height: 100%;
     border: 3px ridge #30475e;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.8);
     overflow: hidden;
     display: flex;
-    filter: saturate(10%);
+    justify-content: center;
+    filter: saturate(20%);
     transition: filter 0.5s;
     transition: transform 400ms;
 }
@@ -62,6 +65,7 @@
 
 img {
     max-height: 100%;
+    /* min-width: 100%; */
 }
 
 .text-container {
@@ -75,11 +79,44 @@ img {
 .text-container > p {
     /* border: 2px solid red; */
     /* margin-top: 20px; */
-    font-size: 20px;
+    font-size: 16px;
     order: 1;
     text-decoration: none;
     text-align: center;
     align-self: center;
     text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.8);
     color: #ccc5b9;
+}
+
+input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    color: whitesmoke;
+    box-sizing: border-box;
+    /* font-family: "Montserrat", sans-serif; */
+    font-size: 18px;
+    margin: 15px;
+    /* width: 100%; */
+    /* text-align: center; */
+}
+
+:focus {
+    outline: none;
+}
+
+::placeholder {
+    color: whitesmoke;
+    opacity: 0.4;
+}
+
+:focus::placeholder {
+    opacity: 0.2;
+    color: #6f251f;
+    transition: 500ms;
+}
+
+input:-webkit-autofill {
+    -webkit-transition: "color 9999s ease-out, background-color 9999s ease-out";
+    -webkit-transition-delay: 9999s;
 }

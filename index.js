@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const db = require("./db");
 const s3 = require("./s3");
+const { s3Url } = require("./config.json");
 
 /////// MULTER ////////
 // handles files and stores them in the "uploads" folder
@@ -48,9 +49,15 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     // console.log("file: ", req.file);
 
     if (req.file) {
-        //at this point you will want to add
-        res.json({
-            success: true,
+        const { username, title, description } = req.body;
+        const url = `${s3Url}${req.file.filename}`;
+        // console.log("url", url);
+        db.addImage(url, username, title, description).then(({ rows }) => {
+            // console.log("index.js - rows", rows);
+            res.json({
+                success: true,
+                rows,
+            });
         });
     } else {
         res.json({

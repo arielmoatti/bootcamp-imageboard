@@ -39,7 +39,7 @@ exports.upload = (req, res, next) => {
     promise
         .then(() => {
             // it worked!!!
-            console.log("our img made it to the cloud!");
+            // console.log("our img made it to the cloud!");
             next(); //we want to make sure to exit the middleware after successfully uploading the img to the cloud
             // optionally you can choose to remove the file after uploading
             fs.unlink(path, () => {});

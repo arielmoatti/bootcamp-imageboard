@@ -24,18 +24,17 @@ new Vue({
             formData.append("username", this.username);
             formData.append("file", this.file);
             //
+            var me = this;
             axios
                 .post("/upload", formData)
                 .then(function (response) {
-                    console.log("response from POST /upload", response);
+                    me.images.unshift(response.data.rows[0]);
                 })
                 .catch(function (err) {
                     console.log("error in axios POST /upload", err);
                 });
         },
         handleChange: function (e) {
-            // console.log("handleChange is running!");
-            // console.log("file: ", e.target.files[0]);
             this.file = e.target.files[0]; //grabbing the file from the choose file button
         },
     },
@@ -44,7 +43,6 @@ new Vue({
         axios
             .get("/images")
             .then(function (response) {
-                console.log("axios GET response", response);
                 me.images = response.data;
             })
             .catch(function (err) {
@@ -52,6 +50,3 @@ new Vue({
             });
     },
 });
-
-//image url
-// https://pimento-imageboard.s3.amazonaws.com/CfbyDcJWKbT6cQfZTu8jE1szMiEz1sXb.jpg
