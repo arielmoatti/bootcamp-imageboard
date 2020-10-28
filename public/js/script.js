@@ -6,7 +6,7 @@ Vue.component("modal-component", {
     data: function () {
         return {
             component: "ariel",
-            selectedImageData: "",
+            imgDetails: "",
         };
     },
     mounted: function () {
@@ -19,7 +19,7 @@ Vue.component("modal-component", {
             .get(passedUrl)
             .then(function (response) {
                 console.log("response", response);
-                me.selectedImageData = response.data[0];
+                me.imgDetails = response.data[0];
             })
             .catch(function (err) {
                 console.log("error in axios GET /sel-images", err);

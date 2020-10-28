@@ -6,6 +6,7 @@
 
 body {
     background-color: lightslategrey;
+    padding-left: 50px;
 }
 /* header {
     display: flex;
@@ -38,7 +39,7 @@ body {
 
     display: grid;
     grid-template-rows: 3fr 1fr;
-    justify-items: center;
+    /* justify-items: center; */
     /* align-content: center; */
     /* justify-content: center; */
     /* vertical-align: middle; */
@@ -119,4 +120,51 @@ input {
 input:-webkit-autofill {
     -webkit-transition: "color 9999s ease-out, background-color 9999s ease-out";
     -webkit-transition-delay: 9999s;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 915;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    /* transition: opacity 1000ms; */
+    /* opacity: 0; */
+    /* visibility: hidden; */
+}
+
+.modal {
+    background-color: white;
+    padding: 30px 25px;
+    border-radius: 7px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 70%;
+    /* width: 1000px; */
+    transform: translate(-50%, -50%);
+    z-index: 12;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* visibility: hidden; */
+    /* opacity: 0; */
+    /* transition: opacity 1s; */
+}
+
+.modal-img-cont {
+    width: 500px;
+    height: 500px;
+    overflow: hidden;
+}
+
+.closeBtn {
+    background-color: darkslateblue;
+    cursor: pointer;
+    margin-top: 20px;
+    padding: 10px 30px;
+    border-radius: 7px;
 }

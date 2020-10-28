@@ -36,12 +36,16 @@
         
     </div>
             <script id="modal-template" type="text/x-template">
-                <div>
-                    <h1>something from the component data: 
-                        {{ selectedImageData.title }}
-                    </h1>
-                    <p>This is a component!!!</p>
-                    <p @click="closeModal">close</p>
+                <div class="overlay">
+                    <div class="modal">
+                        <div class="modal-img-cont">
+                            <img :src="imgDetails.url" alt="" srcset="">
+                        </div>
+                        <h2>{{ imgDetails.title }}</h2>
+                        <h3>{{ imgDetails.description }}  </h3>
+                        <p><small>uploaded by {{ imgDetails.username }}</small></p>
+                        <p @click="closeModal" class="closeBtn">close</p>
+                    </div>
                 </div>
             </script>
 
