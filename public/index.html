@@ -18,16 +18,34 @@
             <button @click="handleClick">submit</button>
         </form>
         <div class="image-board">
-            <div class="image-piece" v-for="image in images">
-                <div class="image-container">
+            <div class="image-piece" v-for="image in images" @click="imageClick(image.id)">
+                <div class="image-container" >
                     <img v-bind:src="image.url">
                 </div>
                 <div class=text-container>
                     <p>{{image.title}}</p>
                 </div>
             </div>
+                <modal-component
+                v-if="selectedImage"
+                :selected-image="selectedImage"
+                @close="closeModalFn"
+                ></modal-component>
         </div>
+
+        
     </div>
+            <script id="modal-template" type="text/x-template">
+                <div>
+                    <h1>something from the component data: 
+                        {{ selectedImageData.title }}
+                    </h1>
+                    <p>This is a component!!!</p>
+                    <p @click="closeModal">close</p>
+                </div>
+            </script>
+
+
     <!-- <footer>
         <p><small>this is my image board website, built with vue.js and PostgreSql</small></p>
     </footer> -->

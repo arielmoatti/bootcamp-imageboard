@@ -44,6 +44,18 @@ app.get("/images", (req, res) => {
         });
 });
 
+app.get("/sel-images/:imageId", (req, res) => {
+    const { imageId } = req.params;
+    // console.log("imageId", imageId);
+    db.getImageById(imageId)
+        .then(({ rows }) => {
+            res.json(rows);
+        })
+        .catch((err) => {
+            console.log("error in GET /sel-images getImageById()", err);
+        });
+});
+
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     // console.log("input values: ", req.body);
     // console.log("file: ", req.file);

@@ -1,6 +1,38 @@
-console.log("index.js sanity!");
+////Vue Components /////
+Vue.component("modal-component", {
+    //
+    template: "#modal-template",
+    props: ["selectedImage"],
+    data: function () {
+        return {
+            component: "ariel",
+            selectedImageData: "",
+        };
+    },
+    mounted: function () {
+        console.log("props: ", this.selectedImage);
+        // let passedUrl = "";
+        let passedUrl = `/sel-images/${this.selectedImage}`;
+        // console.log("passedUrl", passedUrl);
+        var me = this;
+        axios
+            .get(passedUrl)
+            .then(function (response) {
+                console.log("response", response);
+                me.selectedImageData = response.data[0];
+            })
+            .catch(function (err) {
+                console.log("error in axios GET /sel-images", err);
+            });
+    },
+    methods: {
+        closeModal: function () {
+            this.$emit("close");
+        },
+    },
+});
 
-///////////Vue instance/////////////
+////Vue instance/////
 new Vue({
     el: "#main",
     //this is our data object, which vue will render
@@ -11,6 +43,7 @@ new Vue({
         description: "",
         username: "",
         file: null,
+        selectedImage: null,
     },
     // all created functions are defined here
     methods: {
@@ -36,6 +69,13 @@ new Vue({
         },
         handleChange: function (e) {
             this.file = e.target.files[0]; //grabbing the file from the choose file button
+        },
+        imageClick: function (e) {
+            console.log("image was clicked", e);
+            this.selectedImage = e;
+        },
+        closeModalFn: function () {
+            this.selectedImage = null;
         },
     },
     mounted: function () {

@@ -8,6 +8,16 @@ exports.getImages = () => {
     `);
 };
 
+exports.getImageById = (imageId) => {
+    return db.query(
+        `
+    SELECT * FROM images
+    WHERE id=$1
+    `,
+        [imageId]
+    );
+};
+
 exports.addImage = (url, username, title, description) => {
     return db.query(
         `
