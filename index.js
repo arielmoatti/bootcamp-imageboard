@@ -31,6 +31,7 @@ const uploader = multer({
 
 ///MIDDLEWARE/////
 app.use(express.static("public"));
+app.use(express.json());
 //////////////////
 
 ///// ROUTES ///////
@@ -44,7 +45,18 @@ app.get("/images", (req, res) => {
         });
 });
 
-app.get("/sel-images/:imageId", (req, res) => {
+app.get("/comments/:imageId", (req, res) => {
+    const { imageId } = req.params;
+    db.getComments(imageId)
+        .then(({ rows }) => {
+            res.json(rows);
+        })
+        .catch((err) => {
+            console.log("error in GET /comments/:imageId getComments()", err);
+        });
+});
+
+app.get("/images/:imageId", (req, res) => {
     const { imageId } = req.params;
     // console.log("imageId", imageId);
     db.getImageById(imageId)
@@ -52,7 +64,7 @@ app.get("/sel-images/:imageId", (req, res) => {
             res.json(rows);
         })
         .catch((err) => {
-            console.log("error in GET /sel-images getImageById()", err);
+            console.log("error in GET /images/:imageId getImageById()", err);
         });
 });
 

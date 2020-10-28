@@ -36,14 +36,26 @@
         
     </div>
             <script id="modal-template" type="text/x-template">
-                <div class="overlay">
+                <div>
+                    <div class="overlay" @click="closeModal"></div>
                     <div class="modal">
-                        <div class="modal-img-cont">
-                            <img :src="imgDetails.url" alt="" srcset="">
+                        <div class="modal-details">
+                            <div class="modal-img-cont">
+                                <img :src="imgDetails.url" alt="" srcset="">
+                            </div>
+                            <div class="modal-text">
+                                <h2>{{ imgDetails.title }}</h2>
+                                <h3>{{ imgDetails.description }}  </h3>
+                                <p class="by-user">uploaded by {{ imgDetails.username }}</p>
+                            </div>
                         </div>
-                        <h2>{{ imgDetails.title }}</h2>
-                        <h3>{{ imgDetails.description }}  </h3>
-                        <p><small>uploaded by {{ imgDetails.username }}</small></p>
+                        <div class="comments-cont">
+                            <!-- <h3>comment section</h3> -->
+                            <div class="comment-box">
+                                <p>{{ imgComments.comment }}</p>
+                                <p class="by-user">written by {{ imgComments.username }}</p>
+                            </div>
+                        </div>
                         <p @click="closeModal" class="closeBtn">close</p>
                     </div>
                 </div>

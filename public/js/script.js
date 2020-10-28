@@ -5,24 +5,32 @@ Vue.component("modal-component", {
     props: ["selectedImage"],
     data: function () {
         return {
-            component: "ariel",
             imgDetails: "",
+            imgComments: "",
         };
     },
     mounted: function () {
-        console.log("props: ", this.selectedImage);
-        // let passedUrl = "";
-        let passedUrl = `/sel-images/${this.selectedImage}`;
-        // console.log("passedUrl", passedUrl);
         var me = this;
+        let urlAxiosImgs = `/images/${this.selectedImage}`;
         axios
-            .get(passedUrl)
+            .get(urlAxiosImgs)
             .then(function (response) {
-                console.log("response", response);
+                // console.log("response", response);
                 me.imgDetails = response.data[0];
             })
             .catch(function (err) {
-                console.log("error in axios GET /sel-images", err);
+                console.log("error in axios GET /images/:imageId", err);
+            });
+
+        let urlAxiosCmnts = `/comments/${this.selectedImage}`;
+        axios
+            .get(urlAxiosCmnts)
+            .then(function (response) {
+                // console.log("response from axios comments", response);
+                me.imgComments = response.data[0];
+            })
+            .catch(function (err) {
+                console.log("error in axios GET /comments/:imageId", err);
             });
     },
     methods: {
@@ -71,7 +79,7 @@ new Vue({
             this.file = e.target.files[0]; //grabbing the file from the choose file button
         },
         imageClick: function (e) {
-            console.log("image was clicked", e);
+            // console.log("image was clicked", e);
             this.selectedImage = e;
         },
         closeModalFn: function () {
