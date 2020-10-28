@@ -11,9 +11,9 @@ CREATE TABLE images(
 DROP TABLE IF EXISTS comments CASCADE;
 CREATE TABLE comments (
     id          SERIAL PRIMARY KEY,
-    comment     TEXT,
+    comment     TEXT NOT NULL,
     username    VARCHAR NOT NULL,
-    image_id    INT NOT NULL UNIQUE REFERENCES images(id),
+    image_id    INT NOT NULL REFERENCES images(id),
     created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -63,4 +63,8 @@ INSERT INTO images (url, username, title, description) VALUES (
 
 INSERT INTO comments (username, comment, image_id) VALUES (
     'ariel', 'this is my first comment!', 6
+);
+
+INSERT INTO comments (username, comment, image_id) VALUES (
+    'roni', 'and I am second to comment here...', 6
 );

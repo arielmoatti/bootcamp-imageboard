@@ -6,7 +6,7 @@ Vue.component("modal-component", {
     data: function () {
         return {
             imgDetails: "",
-            imgComments: "",
+            imgComments: [],
         };
     },
     mounted: function () {
@@ -26,8 +26,12 @@ Vue.component("modal-component", {
         axios
             .get(urlAxiosCmnts)
             .then(function (response) {
-                // console.log("response from axios comments", response);
-                me.imgComments = response.data[0];
+                console.log("response from axios comments", response);
+                for (let i = response.data.length - 1; i >= 0; i--) {
+                    me.imgComments.unshift(response.data[i]);
+                }
+                // console.log("response.data[0]", response.data[0]);
+                // me.imgComments = response.data[0];
             })
             .catch(function (err) {
                 console.log("error in axios GET /comments/:imageId", err);

@@ -51,9 +51,9 @@
                         </div>
                         <div class="comments-cont">
                             <!-- <h3>comment section</h3> -->
-                            <div class="comment-box">
-                                <p>{{ imgComments.comment }}</p>
-                                <p class="by-user">written by {{ imgComments.username }}</p>
+                            <div class="comment-box"  v-for="each in imgComments" v-if="imgComments.length">
+                                <p>{{ each.comment }}</p>
+                                <p class="by-user">written by {{ each.username }}</p>
                             </div>
                         </div>
                         <p @click="closeModal" class="closeBtn">close</p>
