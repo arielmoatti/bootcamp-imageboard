@@ -1,23 +1,23 @@
 ////Vue Components /////
 Vue.component("modal-component", {
-    //
     template: "#modal-template",
     props: ["selectedImage"],
     data: function () {
         return {
             imgDetails: "",
             imgComments: [],
+            cmtText: "",
+            cmtUser: "",
         };
     },
     mounted: function () {
-        var me = this;
+        let me = this;
 
         let urlAxiosAll = `/getall/${this.selectedImage}`;
         axios
             .get(urlAxiosAll)
             .then(function (response) {
                 me.imgDetails = response.data[0];
-
                 for (let i = 0; i < response.data.length; i++) {
                     me.imgComments.push(response.data[i]);
                 }
@@ -27,6 +27,27 @@ Vue.component("modal-component", {
             });
     },
     methods: {
+        submitComment: function (e) {
+            e.preventDefault();
+            let commentObj = {
+                comment: this.cmtText,
+                username: this.cmtUser,
+                imageId: this.selectedImage,
+            };
+            let me = this;
+            axios
+                .post("/addcomment", commentObj)
+                // .post("/addcomment", this.selectedImage)
+                .then(function (response) {
+                    // console.log("response from axios-post comment", response);
+                    me.imgComments.unshift(response.data.rows[0]);
+                    // console.log("response.data.rows[0]", response.data.rows[0]);
+                })
+                .catch(function (err) {
+                    console.log("error in axios POST /addcomment", err);
+                });
+        },
+
         closeModal: function () {
             this.$emit("close");
         },
@@ -49,7 +70,7 @@ new Vue({
     },
     // all created functions are defined here
     methods: {
-        handleClick: function (e) {
+        submitImage: function (e) {
             e.preventDefault();
             // console.log("this: ", this);
 
@@ -59,7 +80,7 @@ new Vue({
             formData.append("username", this.username);
             formData.append("file", this.file);
             //
-            var me = this;
+            let me = this;
             axios
                 .post("/upload", formData)
                 .then(function (response) {
@@ -81,7 +102,7 @@ new Vue({
         },
     },
     mounted: function () {
-        var me = this; //helps to pass the global "this"  (main data in vue) down to the function below
+        let me = this; //helps to pass the global "this"  (main data in vue) down to the function below
         axios
             .get("/images")
             .then(function (response) {

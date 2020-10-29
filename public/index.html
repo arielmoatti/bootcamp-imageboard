@@ -15,7 +15,7 @@
             <input v-model="title" type="text" name="title" placeholder="title" autocomplete="off">
             <input v-model="description" type="text" name="description" placeholder="description" autocomplete="off">
             <input v-model="username" type="text" name="username" placeholder="user name" autocomplete="off">
-            <button @click="handleClick">submit</button>
+            <button @click="submitImage">submit</button>
         </form>
         <div class="image-board">
             <div class="image-piece" v-for="image in images" @click="imageClick(image.id)">
@@ -49,14 +49,23 @@
                                 <p class="by-user">uploaded by {{ imgDetails.username }}</p>
                             </div>
                         </div>
-                        <div class="comments-cont">
+                        
+                        <div id="comments-form">
+                            <form action="">                                
+                                <input v-model="cmtText" type="text" name="cmtText" size="50" placeholder="type your comment here..." autocomplete="off">
+                                <input v-model="cmtUser" type="text" name="cmtUser" size="10" placeholder="your name" autocomplete="off">
+                                <button @click="submitComment">submit</button>
+                            </form>
+                        </div>
+                        
+                        <div class="comments-cont">                            
                             <!-- <h3>comment section</h3> -->
-                            <div class="comment-box"  v-for="cmt in imgComments" v-if="imgComments.length">
+                            <div class="comment-box" v-if="imgComments[0].cmnt_id" v-for="cmt in imgComments">
                                 <p>{{ cmt.comment }}</p>
                                 <p class="by-user">written by {{ cmt.cmnt_writer }} at {{cmt.cmnt_time}} </p>
                             </div>
                         </div>
-                        <p @click="closeModal" class="closeBtn">close</p>
+                        <p @click="closeModal" class="close-btn">close</p>
                     </div>
                 </div>
             </script>

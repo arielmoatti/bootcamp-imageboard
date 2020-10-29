@@ -75,5 +75,23 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
         });
     }
 });
+
+// app.post("/addcomment", commentObj, (req, res) => {
+app.post("/addcomment", (req, res) => {
+    const { comment, username, imageId } = req.body;
+    // console.log("comment, username, imageId", comment, username, imageId);
+    // if (comment != "" && username != "") {
+    db.addComment(comment, username, imageId).then(({ rows }) => {
+        // console.log("index.js - rows", rows);
+        res.json({
+            success: true,
+            rows,
+        });
+    });
+    // } else {
+    //     console.log("empty fields!");
+    // }
+});
+
 //
 app.listen(8080, () => console.log("image board up and running"));
