@@ -68,3 +68,15 @@ INSERT INTO comments (username, comment, image_id) VALUES (
 INSERT INTO comments (username, comment, image_id) VALUES (
     'roni', 'and I am second to comment here...', 6
 );
+
+INSERT INTO comments (username, comment, image_id) VALUES (
+    'ananda', 'I am third!', 6
+);
+
+INSERT INTO comments (username, comment, image_id) VALUES (
+    'Angus McGyver', 'what a great place (fourth)', 6
+);
+
+INSERT INTO comments (username, comment, image_id) VALUES (
+    'John', 'I''m also first here!', 5
+);

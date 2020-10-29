@@ -32,7 +32,8 @@ exports.addImage = (url, username, title, description) => {
 exports.getComments = (imageId) => {
     return db.query(
         `
-        SELECT * FROM comments 
+        SELECT *
+        FROM comments
         WHERE image_id = $1
         ORDER BY id DESC
         `,
