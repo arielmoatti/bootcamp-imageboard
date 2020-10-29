@@ -60,19 +60,25 @@ app.get("/getall/:imageId", (req, res) => {
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     if (req.file) {
         const { username, title, description } = req.body;
-        const url = `${s3Url}${req.file.filename}`;
-        // console.log("url", url);
-        db.addImage(url, username, title, description).then(({ rows }) => {
-            // console.log("index.js - rows", rows);
-            res.json({
-                success: true,
-                rows,
+        if (title !== "" && username !== "") {
+            const url = `${s3Url}${req.file.filename}`;
+            db.addImage(url, username, title, description).then(({ rows }) => {
+                res.json({
+                    success: true,
+                    rows,
+                });
             });
-        });
+        } else {
+            res.json({
+                success: false,
+            });
+            console.log("empty fields in image form!");
+        }
     } else {
         res.json({
             success: false,
         });
+        console.log("no image selected in image form!");
     }
 });
 
@@ -80,17 +86,21 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
 app.post("/addcomment", (req, res) => {
     const { comment, username, imageId } = req.body;
     // console.log("comment, username, imageId", comment, username, imageId);
-    // if (comment != "" && username != "") {
-    db.addComment(comment, username, imageId).then(({ rows }) => {
-        // console.log("index.js - rows", rows);
-        res.json({
-            success: true,
-            rows,
+    if (comment !== "" && username !== "") {
+        db.addComment(comment, username, imageId).then(({ rows }) => {
+            // console.log("index.js - rows", rows);
+            res.json({
+                success: true,
+                rows,
+            });
+            console.log("comment added!");
         });
-    });
-    // } else {
-    //     console.log("empty fields!");
-    // }
+    } else {
+        res.json({
+            success: false,
+        });
+        console.log("empty fields in comment form!");
+    }
 });
 
 //

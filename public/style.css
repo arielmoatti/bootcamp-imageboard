@@ -6,7 +6,6 @@
 
 body {
     background-color: lightslategrey;
-    padding-left: 50px;
 }
 /* header {
     display: flex;
@@ -21,8 +20,64 @@ body {
     bottom: 0;
 } */
 
+#images-form {
+    background-color: darkslategray;
+    padding: 20px;
+}
+
+/* ///////////////////// input fields settings ////////////////////// */
+
+input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    color: whitesmoke;
+    box-sizing: border-box;
+    /* font-family: "Montserrat", sans-serif; */
+    font-size: 16px;
+    margin: 15px;
+    /* width: 100%; */
+    /* text-align: center; */
+}
+
+:focus {
+    outline: none;
+}
+
+::placeholder {
+    color: whitesmoke;
+    opacity: 0.4;
+}
+
+:focus::placeholder {
+    opacity: 0.2;
+    color: #6f251f;
+    transition: 500ms;
+}
+
+input:-webkit-autofill {
+    -webkit-transition: "color 9999s ease-out, background-color 9999s ease-out";
+    -webkit-transition-delay: 9999s;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 2px solid #ccc;
+    display: inline-block;
+    color: whitesmoke;
+    opacity: 0.4;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+/* ///////////////////// imageboard settings ////////////////////// */
+
 .image-board {
     /* border: 2px solid grey; */
+    padding-left: 50px;
     display: flex;
     flex-wrap: wrap;
     /* justify-content: center; */
@@ -89,38 +144,7 @@ img {
     color: #ccc5b9;
 }
 
-input {
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px solid #ccc;
-    color: whitesmoke;
-    box-sizing: border-box;
-    /* font-family: "Montserrat", sans-serif; */
-    font-size: 18px;
-    margin: 15px;
-    /* width: 100%; */
-    /* text-align: center; */
-}
-
-:focus {
-    outline: none;
-}
-
-::placeholder {
-    color: whitesmoke;
-    opacity: 0.4;
-}
-
-:focus::placeholder {
-    opacity: 0.2;
-    color: #6f251f;
-    transition: 500ms;
-}
-
-input:-webkit-autofill {
-    -webkit-transition: "color 9999s ease-out, background-color 9999s ease-out";
-    -webkit-transition-delay: 9999s;
-}
+/* ///////////////////// modal settings ////////////////////// */
 
 .overlay {
     position: fixed;
