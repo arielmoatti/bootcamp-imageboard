@@ -53,7 +53,7 @@
                             <!-- <h3>comment section</h3> -->
                             <div class="comment-box"  v-for="cmt in imgComments" v-if="imgComments.length">
                                 <p>{{ cmt.comment }}</p>
-                                <p class="by-user">written by {{ cmt.username }} at {{cmt.created_at}} </p>
+                                <p class="by-user">written by {{ cmt.cmnt_writer }} at {{cmt.cmnt_time}} </p>
                             </div>
                         </div>
                         <p @click="closeModal" class="closeBtn">close</p>

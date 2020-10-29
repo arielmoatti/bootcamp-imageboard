@@ -11,30 +11,19 @@ Vue.component("modal-component", {
     },
     mounted: function () {
         var me = this;
-        let urlAxiosImgs = `/images/${this.selectedImage}`;
-        axios
-            .get(urlAxiosImgs)
-            .then(function (response) {
-                // console.log("response", response);
-                me.imgDetails = response.data[0];
-            })
-            .catch(function (err) {
-                console.log("error in axios GET /images/:imageId", err);
-            });
 
-        let urlAxiosCmnts = `/comments/${this.selectedImage}`;
+        let urlAxiosAll = `/getall/${this.selectedImage}`;
         axios
-            .get(urlAxiosCmnts)
+            .get(urlAxiosAll)
             .then(function (response) {
-                console.log("response from axios comments", response);
-                for (let i = response.data.length - 1; i >= 0; i--) {
-                    me.imgComments.unshift(response.data[i]);
+                me.imgDetails = response.data[0];
+
+                for (let i = 0; i < response.data.length; i++) {
+                    me.imgComments.push(response.data[i]);
                 }
-                // console.log("response.data[0]", response.data[0]);
-                // me.imgComments = response.data[0];
             })
             .catch(function (err) {
-                console.log("error in axios GET /comments/:imageId", err);
+                console.log("error in axios GET /getall/:imageId", err);
             });
     },
     methods: {
@@ -56,6 +45,7 @@ new Vue({
         username: "",
         file: null,
         selectedImage: null,
+        // selectedImage: location.hash.slice(1),
     },
     // all created functions are defined here
     methods: {

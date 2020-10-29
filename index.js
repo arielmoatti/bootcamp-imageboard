@@ -34,7 +34,7 @@ app.use(express.static("public"));
 app.use(express.json());
 //////////////////
 
-///// ROUTES ///////
+// ROUTES ///////
 app.get("/images", (req, res) => {
     db.getImages()
         .then(({ rows }) => {
@@ -45,33 +45,19 @@ app.get("/images", (req, res) => {
         });
 });
 
-app.get("/comments/:imageId", (req, res) => {
+app.get("/getall/:imageId", (req, res) => {
     const { imageId } = req.params;
-    db.getComments(imageId)
+    db.getAllDetails(imageId)
         .then(({ rows }) => {
+            // console.log("rows", rows);
             res.json(rows);
         })
         .catch((err) => {
-            console.log("error in GET /comments/:imageId getComments()", err);
-        });
-});
-
-app.get("/images/:imageId", (req, res) => {
-    const { imageId } = req.params;
-    // console.log("imageId", imageId);
-    db.getImageById(imageId)
-        .then(({ rows }) => {
-            res.json(rows);
-        })
-        .catch((err) => {
-            console.log("error in GET /images/:imageId getImageById()", err);
+            console.log("error in GET /getall/:imageId getAllDetails()", err);
         });
 });
 
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
-    // console.log("input values: ", req.body);
-    // console.log("file: ", req.file);
-
     if (req.file) {
         const { username, title, description } = req.body;
         const url = `${s3Url}${req.file.filename}`;

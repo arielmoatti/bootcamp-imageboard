@@ -80,3 +80,21 @@ INSERT INTO comments (username, comment, image_id) VALUES (
 INSERT INTO comments (username, comment, image_id) VALUES (
     'John', 'I''m also first here!', 5
 );
+
+
+-- SELECT * 
+-- FROM images
+-- JOIN comments
+-- ON images.id = comments.image_id
+-- WHERE image_id = 6
+-- ORDER BY comments.id DESC;
+
+-- SELECT 
+-- images.id, images.username, images.title, images.description, images.url, images.created_at,
+-- comments.comment, comments.image_id,
+-- comments.created_at AS cmnt_time, comments.id AS cmnt_id, comments.username AS cmnt_writer
+-- FROM images
+-- LEFT JOIN comments
+-- ON images.id = comments.image_id
+-- WHERE images.id = 4
+-- ORDER BY comments.id DESC;

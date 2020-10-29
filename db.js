@@ -8,16 +8,6 @@ exports.getImages = () => {
     `);
 };
 
-exports.getImageById = (imageId) => {
-    return db.query(
-        `
-    SELECT * FROM images
-    WHERE id=$1
-    `,
-        [imageId]
-    );
-};
-
 exports.addImage = (url, username, title, description) => {
     return db.query(
         `
@@ -29,13 +19,18 @@ exports.addImage = (url, username, title, description) => {
     );
 };
 
-exports.getComments = (imageId) => {
+exports.getAllDetails = (imageId) => {
     return db.query(
         `
-        SELECT *
-        FROM comments
-        WHERE image_id = $1
-        ORDER BY id DESC
+        SELECT 
+        images.id, images.username, images.title, images.description, images.url, images.created_at,
+        comments.comment, comments.image_id,
+        comments.created_at AS cmnt_time, comments.id AS cmnt_id, comments.username AS cmnt_writer
+        FROM images
+        LEFT JOIN comments
+        ON images.id = comments.image_id
+        WHERE images.id = $1
+        ORDER BY comments.id DESC
         `,
         [imageId]
     );
