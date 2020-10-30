@@ -26,14 +26,17 @@
         </div>
 
         <div class="image-board">
-            <div class="image-piece" v-for="image in images" :key="image.id" @click="imageClick(image.id)">
-                <div class="image-container" >
-                    <img v-bind:src="image.url">
-                </div>
-                <div class=text-container>
-                    <p>{{image.title}}</p>
-                </div>
+            <div v-for="image in images" :key="image.id">
+                <a class="image-piece" :href="'#'+ image.id">
+                    <div class="image-container" >
+                        <img v-bind:src="image.url">
+                    </div>
+                    <div class=text-container>
+                        <p>{{image.title}}</p>
+                    </div>
+                </a>
             </div>
+
             <modal-component
             v-if="selectedImage"
             :selected-image="selectedImage"
@@ -42,43 +45,43 @@
 
         </div>
         <p id="more-btn" v-if="more" @click="getMore">more...</p>
-        
     </div>
-            <script id="modal-template" type="text/x-template">
-                <div>
-                    <div class="overlay" @click="closeModal"></div>
-                    <div class="modal" v-on:keyup.esc="closeModal">
-                        <div class="modal-details">
-                            <div class="modal-img-cont">
-                                <img :src="imgDetails.url" alt="" srcset="">
-                            </div>
-                            <div class="modal-text">
-                                <h2>{{ imgDetails.title }}</h2>
-                                <h3>{{ imgDetails.description }}  </h3>
-                                <p class="by-user">uploaded by {{ imgDetails.username }}</p>
-                            </div>
-                        </div>
-                        
-                        <div id="comments-form">
-                            <form action="">                                
-                                <input v-model="cmtText" type="text" name="cmtText" size="50" placeholder="type your comment here..." autocomplete="off">
-                                <input v-model="cmtUser" type="text" name="cmtUser" size="10" placeholder="your name" autocomplete="off">
-                                <button @click="submitComment">submit</button>
-                            </form>
-                        </div>
-                        <p v-if="errmsg" style="color:red">you cannot submit empty fields...</p>
-                        
-                        <div class="comments-cont">                            
-                            <!-- <h3>comment section</h3> -->
-                            <div class="comment-box" v-for="cmt in imgComments" v-if="cmt.cmnt_id">                                
-                                <p>{{ cmt.comment }}</p>
-                                <p class="by-user">written by {{ cmt.cmnt_writer }} at {{cmt.cmnt_time}} </p>
-                            </div>
-                        </div>
-                        <p @click="closeModal" class="close-btn">close</p>
+
+    <script id="modal-template" type="text/x-template">
+        <div>
+            <div class="overlay" @click="closeModal"></div>
+            <div class="modal" v-on:keyup.esc="closeModal">
+                <div class="modal-details">
+                    <div class="modal-img-cont">
+                        <img :src="imgDetails.url" alt="" srcset="">
+                    </div>
+                    <div class="modal-text">
+                        <h2>{{ imgDetails.title }}</h2>
+                        <h3>{{ imgDetails.description }}  </h3>
+                        <p class="by-user">uploaded by {{ imgDetails.username }}</p>
                     </div>
                 </div>
-            </script>
+                
+                <div id="comments-form">
+                    <form action="">                                
+                        <input v-model="cmtText" type="text" name="cmtText" size="50" placeholder="type your comment here..." autocomplete="off">
+                        <input v-model="cmtUser" type="text" name="cmtUser" size="10" placeholder="your name" autocomplete="off">
+                        <button @click="submitComment">submit</button>
+                    </form>
+                </div>
+                <p v-if="errmsg" style="color:red">you cannot submit empty fields...</p>
+                
+                <div class="comments-cont">                            
+                    <!-- <h3>comment section</h3> -->
+                    <div class="comment-box" v-for="cmt in imgComments" v-if="cmt.cmnt_id">                                
+                        <p>{{ cmt.comment }}</p>
+                        <p class="by-user">written by {{ cmt.cmnt_writer }} at {{cmt.cmnt_time}} </p>
+                    </div>
+                </div>
+                <p @click="closeModal" class="close-btn">close</p>
+            </div>
+        </div>
+    </script>
 
 
     <!-- <footer>

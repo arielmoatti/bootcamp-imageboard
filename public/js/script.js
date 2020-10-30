@@ -11,21 +11,15 @@ Vue.component("modal-component", {
             errmsg: false,
         };
     },
-    mounted: function () {
-        let me = this;
-
-        axios
-            .get(`/getall/${this.selectedImage}`)
-            .then(function (response) {
-                me.imgDetails = response.data[0];
-                for (let i = 0; i < response.data.length; i++) {
-                    me.imgComments.push(response.data[i]);
-                }
-            })
-            .catch(function (err) {
-                console.log("error in axios GET /getall/:imageid", err);
-            });
+    watch: {
+        selectedImage: function () {
+            this.renderModal();
+        },
     },
+    mounted: function () {
+        this.renderModal();
+    },
+
     methods: {
         submitComment: function (e) {
             e.preventDefault();
@@ -58,10 +52,31 @@ Vue.component("modal-component", {
         closeModal: function () {
             this.$emit("close");
         },
+
+        renderModal: function () {
+            let me = this;
+
+            axios
+                .get(`/getall/${this.selectedImage}`)
+                .then(function (response) {
+                    console.log("response", response);
+                    if (response.data.length != 0) {
+                        me.imgDetails = response.data[0];
+                        for (let i = 0; i < response.data.length; i++) {
+                            me.imgComments.push(response.data[i]);
+                        }
+                    } else {
+                        me.closeModal();
+                    }
+                })
+                .catch(function (err) {
+                    console.log("error in axios GET /getall/:imageid", err);
+                });
+        },
     },
 });
 
-////Vue instance/////
+/////////////////////////Vue instance/////////////////////
 new Vue({
     el: "#main",
     data: {
@@ -71,9 +86,9 @@ new Vue({
         username: "",
         file: null,
         errmsg: false,
-        selectedImage: null,
         more: true,
-        // selectedImage: location.hash.slice(1),
+        // selectedImage: null,
+        selectedImage: location.hash.slice(1),
     },
     methods: {
         submitImage: function (e) {
@@ -110,17 +125,18 @@ new Vue({
             this.file = e.target.files[0]; //grabbing the file from the choose file button
         },
 
-        imageClick: function (e) {
-            this.selectedImage = e;
-            // console.log("selected image id: ", this.selectedImage);
-        },
+        // imageClick: function (e) {
+        //     this.selectedImage = e;
+        //     // console.log("selected image id: ", this.selectedImage);
+        // },
 
         hideMessage: function () {
             this.errmsg = false;
         },
 
         closeModalFn: function () {
-            this.selectedImage = null;
+            // this.selectedImage = null;
+            location.hash = "";
         },
 
         getMore: function () {
@@ -150,6 +166,11 @@ new Vue({
 
     mounted: function () {
         let me = this;
+        window.addEventListener("hashchange", function () {
+            //
+            me.selectedImage = location.hash.slice(1);
+        });
+
         axios
             .get("/images")
             .then(function (response) {

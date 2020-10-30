@@ -59,7 +59,6 @@ app.get("/getall/:imageid", (req, res) => {
     const { imageid } = req.params;
     db.getAllDetails(imageid)
         .then(({ rows }) => {
-            // console.log("rows", rows);
             res.json(rows);
         })
         .catch((err) => {
