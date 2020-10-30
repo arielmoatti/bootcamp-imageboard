@@ -117,8 +117,6 @@ new Vue({
 
         hideMessage: function () {
             this.errmsg = false;
-            // setTimeout(() => {
-            // }, 2000);
         },
 
         closeModalFn: function () {
