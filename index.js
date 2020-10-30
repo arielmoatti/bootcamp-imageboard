@@ -36,24 +36,34 @@ app.use(express.json());
 
 // ROUTES ///////
 app.get("/images", (req, res) => {
+    let lowestId;
+    db.getLowestId()
+        .then(({ rows }) => {
+            lowestId = rows[0].id;
+            // console.log("lowestId", lowestId);
+        })
+        .catch((err) => {
+            console.log("error in GET /images getLowestId()", err);
+        });
+
     db.getImages()
         .then(({ rows }) => {
-            res.json(rows);
+            res.json({ rows, lowestId });
         })
         .catch((err) => {
             console.log("error in GET /images getImages()", err);
         });
 });
 
-app.get("/getall/:imageId", (req, res) => {
-    const { imageId } = req.params;
-    db.getAllDetails(imageId)
+app.get("/getall/:imageid", (req, res) => {
+    const { imageid } = req.params;
+    db.getAllDetails(imageid)
         .then(({ rows }) => {
             // console.log("rows", rows);
             res.json(rows);
         })
         .catch((err) => {
-            console.log("error in GET /getall/:imageId getAllDetails()", err);
+            console.log("error in GET /getall/:imageid getAllDetails()", err);
         });
 });
 
@@ -84,10 +94,10 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
 
 // app.post("/addcomment", commentObj, (req, res) => {
 app.post("/addcomment", (req, res) => {
-    const { comment, username, imageId } = req.body;
-    // console.log("comment, username, imageId", comment, username, imageId);
+    const { comment, username, imageid } = req.body;
+    // console.log("comment, username, imageid", comment, username, imageid);
     if (comment !== "" && username !== "") {
-        db.addComment(comment, username, imageId).then(({ rows }) => {
+        db.addComment(comment, username, imageid).then(({ rows }) => {
             // console.log("index.js - rows", rows);
             res.json({
                 success: true,
@@ -103,5 +113,17 @@ app.post("/addcomment", (req, res) => {
     }
 });
 
+app.get("/moreimages/:lastid", (req, res) => {
+    const { lastid } = req.params;
+    // console.log("lastid: ", lastid);
+
+    db.getMoreImages(lastid)
+        .then(({ rows }) => {
+            res.json(rows);
+        })
+        .catch((err) => {
+            console.log("error in GET /moreimages getMoreImages()", err);
+        });
+});
 //
 app.listen(8080, () => console.log("image board up and running"));

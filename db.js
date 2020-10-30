@@ -6,10 +6,11 @@ exports.getImages = () => {
     return db.query(`
     SELECT * FROM images
     ORDER BY id DESC
+    LIMIT 7;
     `);
 };
 
-exports.getAllDetails = (imageId) => {
+exports.getAllDetails = (imageid) => {
     return db.query(
         `
         SELECT 
@@ -22,7 +23,7 @@ exports.getAllDetails = (imageId) => {
         WHERE images.id = $1
         ORDER BY comments.id DESC
         `,
-        [imageId]
+        [imageid]
     );
 };
 
@@ -39,7 +40,7 @@ exports.addImage = (url, username, title, description) => {
     );
 };
 
-exports.addComment = (comment, username, imageId) => {
+exports.addComment = (comment, username, imageid) => {
     return db.query(
         `
         INSERT INTO comments (comment, username, image_id)
@@ -47,6 +48,32 @@ exports.addComment = (comment, username, imageId) => {
         RETURNING
         id AS cmnt_id, comment, created_at AS cmnt_time, username AS cmnt_writer
         `,
-        [comment, username, imageId]
+        [comment, username, imageid]
+    );
+};
+
+exports.getLowestId = () => {
+    return db.query(
+        `
+        SELECT id FROM images
+        ORDER BY id ASC
+        LIMIT 1;
+        `
+    );
+};
+
+exports.getMoreImages = (lastid) => {
+    return db.query(
+        `
+        SELECT url, title, id, (
+        SELECT id FROM images
+        ORDER BY id ASC
+        LIMIT 1
+        ) AS "lowestid" FROM images
+        WHERE id < $1
+        ORDER BY id DESC
+        LIMIT 7;
+        `,
+        [lastid]
     );
 };

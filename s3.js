@@ -20,7 +20,11 @@ exports.upload = (req, res, next) => {
     if (!req.file) {
         //something went wrong with multer (no file chosen, over limit etc.)
         console.log("no files to upload... :(");
-        return res.sendStatus(500);
+        res.json({
+            success: false,
+        });
+        return;
+        // return res.sendStatus(500);
     }
 
     const { filename, mimetype, size, path } = req.file;

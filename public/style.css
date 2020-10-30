@@ -6,6 +6,7 @@
 
 body {
     background-color: lightslategrey;
+    min-height: 95vh;
 }
 /* header {
     display: flex;
@@ -20,9 +21,16 @@ body {
     bottom: 0;
 } */
 
+#main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 #images-form {
     background-color: darkslategray;
     padding: 20px;
+    width: 100%;
 }
 
 /* ///////////////////// input fields settings ////////////////////// */
@@ -66,11 +74,19 @@ input[type="file"] {
 
 .custom-file-upload {
     border: 2px solid #ccc;
+    /* background-color: pink; */
     display: inline-block;
     color: whitesmoke;
     opacity: 0.4;
     padding: 6px 12px;
     cursor: pointer;
+}
+
+.file-loaded {
+    background-color: grey;
+    border: 3px solid green;
+    color: green;
+    opacity: 1;
 }
 
 /* ///////////////////// imageboard settings ////////////////////// */
@@ -161,7 +177,7 @@ img {
     background-color: whitesmoke;
     padding: 30px;
     border-radius: 7px;
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     height: max-content;
@@ -270,4 +286,16 @@ img {
 #comments-form form {
     /* background-color: cadetblue; */
     /* width: 100%; */
+}
+
+#more-btn {
+    background-color: olivedrab;
+    color: whitesmoke;
+    cursor: pointer;
+    margin: 20px;
+    padding: 10px 30px;
+    border-radius: 7px;
+    align-self: center;
+    border: 1px solid darkgreen;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.8);
 }

@@ -23,7 +23,7 @@ Vue.component("modal-component", {
                 }
             })
             .catch(function (err) {
-                console.log("error in axios GET /getall/:imageId", err);
+                console.log("error in axios GET /getall/:imageid", err);
             });
     },
     methods: {
@@ -32,7 +32,7 @@ Vue.component("modal-component", {
             let commentObj = {
                 comment: this.cmtText,
                 username: this.cmtUser,
-                imageId: this.selectedImage,
+                imageid: this.selectedImage,
             };
             let me = this;
             axios
@@ -72,6 +72,7 @@ new Vue({
         file: null,
         errmsg: false,
         selectedImage: null,
+        more: true,
         // selectedImage: location.hash.slice(1),
     },
     methods: {
@@ -111,19 +112,56 @@ new Vue({
 
         imageClick: function (e) {
             this.selectedImage = e;
+            // console.log("selected image id: ", this.selectedImage);
+        },
+
+        hideMessage: function () {
+            this.errmsg = false;
+            // setTimeout(() => {
+            // }, 2000);
         },
 
         closeModalFn: function () {
             this.selectedImage = null;
         },
+
+        getMore: function () {
+            // console.log("more clicked!");
+            // console.log("images array", this.images);
+            let lastid = this.images[this.images.length - 1].id;
+            // console.log("lastid", lastid);
+            let me = this;
+            axios
+                .get(`/moreimages/${lastid}`)
+                .then(function (response) {
+                    for (let i = 0; i < response.data.length; i++) {
+                        me.images.push(response.data[i]);
+                    }
+                    if (
+                        response.data[response.data.length - 1].id ===
+                        response.data[0].lowestid
+                    ) {
+                        me.more = false;
+                    }
+                })
+                .catch(function (err) {
+                    console.log("error in axios GET /moreimages", err);
+                });
+        },
     },
 
     mounted: function () {
-        let me = this; //helps to pass the global "this" (main data in vue) down to the function below
+        let me = this;
         axios
             .get("/images")
             .then(function (response) {
-                me.images = response.data;
+                me.images = response.data.rows;
+                if (
+                    response.data.rows[response.data.rows.length - 1].id ===
+                    response.data.lowestId
+                ) {
+                    me.more = false;
+                }
             })
             .catch(function (err) {
                 console.log("error in axios GET /images", err);

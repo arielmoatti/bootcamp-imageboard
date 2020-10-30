@@ -13,14 +13,13 @@
     <div id="main">
         <div id="images-form">
             <form action="">
-                <label for="file-upload" class="custom-file-upload">
-                    <i class="fa fa-cloud-upload"></i> select image
+                <label for="file-upload" @mousedown=hideMessage class="custom-file-upload" :class="[file ? 'file-loaded' : '']">
+                    <i class="fa fa-cloud-upload"></i> {{ file ? file.name : 'select image'}}
                 </label>
-                <input @change="handleChange" id="file-upload" type="file" name="file" accept="image/*">
-                
-                <input v-model="title" type="text" name="title" placeholder="give your image a title" autocomplete="off">
-                <input v-model="description" type="text" name="description" placeholder="put some description here" size="50" autocomplete="off">
-                <input v-model="username" type="text" name="username" placeholder="fill in your name" autocomplete="off">
+                <input @change="handleChange" id="file-upload" type="file" name="file" accept="image/*">                
+                <input v-model="title" @mousedown=hideMessage type="text" name="title" placeholder="give your image a title" autocomplete="off">
+                <input v-model="description" @mousedown=hideMessage type="text" name="description" placeholder="put some description here" size="50" autocomplete="off">
+                <input v-model="username" @mousedown=hideMessage type="text" name="username" placeholder="fill in your name" autocomplete="off">
                 <button @click="submitImage">submit</button>
                 <p v-if="errmsg" style="color:red">you cannot submit empty fields...</p>
             </form>
@@ -35,12 +34,14 @@
                     <p>{{image.title}}</p>
                 </div>
             </div>
-                <modal-component
-                v-if="selectedImage"
-                :selected-image="selectedImage"
-                @close="closeModalFn"
-                ></modal-component>
+            <modal-component
+            v-if="selectedImage"
+            :selected-image="selectedImage"
+            @close="closeModalFn"
+            ></modal-component>
+
         </div>
+        <p id="more-btn" v-if="more" @click="getMore">more...</p>
         
     </div>
             <script id="modal-template" type="text/x-template">
