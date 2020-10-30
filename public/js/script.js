@@ -43,6 +43,8 @@ Vue.component("modal-component", {
                         me.imgComments.unshift(response.data.rows[0]);
                         // console.log("success is:", response.data.success);
                         me.errmsg = false;
+                        me.cmtText = "";
+                        me.cmtUser = "";
                     } else {
                         // console.log("success is: ", response.data.success);
                         me.errmsg = true;
@@ -51,9 +53,6 @@ Vue.component("modal-component", {
                 .catch(function (err) {
                     console.log("error in axios POST /addcomment", err);
                 });
-            if (me.errmsg) {
-                me.cmtText = me.cmtUser = "";
-            }
         },
 
         closeModal: function () {
@@ -93,6 +92,9 @@ new Vue({
                         // console.log("success is:", response.data.success);
                         me.errmsg = false;
                         me.file = null;
+                        me.title = "";
+                        me.description = "";
+                        me.username = "";
                     } else {
                         // console.log("success is: ", response.data.success);
                         me.errmsg = true;
@@ -101,9 +103,6 @@ new Vue({
                 .catch(function (err) {
                     console.log("error in axios POST /upload", err);
                 });
-            if (me.errmsg) {
-                me.title = me.description = me.username = "";
-            }
         },
 
         handleChange: function (e) {

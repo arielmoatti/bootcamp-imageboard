@@ -18,7 +18,7 @@ const s3 = new aws.S3({
 
 exports.upload = (req, res, next) => {
     if (!req.file) {
-        //something went wrong with multer (over limit tc.)
+        //something went wrong with multer (no file chosen, over limit etc.)
         console.log("no files to upload... :(");
         return res.sendStatus(500);
     }

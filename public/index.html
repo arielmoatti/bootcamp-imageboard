@@ -25,8 +25,9 @@
                 <p v-if="errmsg" style="color:red">you cannot submit empty fields...</p>
             </form>
         </div>
+
         <div class="image-board">
-            <div class="image-piece" v-for="image in images" @click="imageClick(image.id)">
+            <div class="image-piece" v-for="image in images" :key="image.id" @click="imageClick(image.id)">
                 <div class="image-container" >
                     <img v-bind:src="image.url">
                 </div>
@@ -40,13 +41,12 @@
                 @close="closeModalFn"
                 ></modal-component>
         </div>
-
         
     </div>
             <script id="modal-template" type="text/x-template">
                 <div>
                     <div class="overlay" @click="closeModal"></div>
-                    <div class="modal">
+                    <div class="modal" v-on:keyup.esc="closeModal">
                         <div class="modal-details">
                             <div class="modal-img-cont">
                                 <img :src="imgDetails.url" alt="" srcset="">
