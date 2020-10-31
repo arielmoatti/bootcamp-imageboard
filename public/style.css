@@ -8,6 +8,10 @@ body {
     background-color: lightslategrey;
     /* min-height: 95vh; */
 }
+
+a {
+    text-decoration: none;
+}
 /* header {
     display: flex;
     height: 150px;
