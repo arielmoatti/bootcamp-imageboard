@@ -1,3 +1,7 @@
+let scrollLocation;
+
+// console.log($);
+
 ////Vue Components /////
 Vue.component("modal-component", {
     template: "#modal-template",
@@ -134,11 +138,19 @@ new Vue({
             this.errmsg = false;
         },
 
-        closeModalFn: function () {
-            location.hash = "";
+        imageMouseenter: function () {
+            // storing the scroll position before clicking on modal
+            scrollLocation = $(document).scrollTop();
+            console.log("scrollLocation", scrollLocation);
         },
 
-        getMore: function () {
+        closeModalFn: function () {
+            location.hash = "";
+            //sets the scroll position to where it was before modal render
+            $(document).scrollTop(scrollLocation);
+        },
+
+        getMoreClick: function () {
             let lastid = this.images[this.images.length - 1].id;
             let me = this;
             axios

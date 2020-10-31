@@ -27,7 +27,7 @@
 
         <div class="image-board">
             <div v-for="image in images" :key="image.id">
-                <a class="image-piece" :href="'#'+ image.id">
+                <a class="image-piece" :href="'#'+ image.id" @mouseenter="imageMouseenter">
                     <div class="image-container" >
                         <img v-bind:src="image.url">
                     </div>
@@ -44,7 +44,7 @@
             ></modal-component>
 
         </div>
-        <p id="more-btn" v-if="more" @click="getMore">more...</p>
+        <p id="more-btn" v-if="more" @click="getMoreClick">more...</p>
     </div>
 
     <script id="modal-template" type="text/x-template">
@@ -89,6 +89,7 @@
     </footer> -->
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="/js/script.js"></script>
 </body>
 </html>
