@@ -11,7 +11,7 @@ exports.getImages = () => {
     ) AS "lowestid" 
     FROM images
     ORDER BY id DESC
-    LIMIT 4;
+    LIMIT 7;
     `);
 };
 
@@ -82,7 +82,7 @@ exports.getMoreImages = (lastid) => {
         FROM images
         WHERE id < $1
         ORDER BY id DESC
-        LIMIT 4;
+        LIMIT 7;
         `,
         [lastid]
     );

@@ -107,8 +107,11 @@ new Vue({
                             .get("/images")
                             .then(function (response) {
                                 me.images = response.data.rows;
-                                let lastid = me.images[me.images.length - 1].id;
-                                if (lastid !== response.data.rows[0].lowestid) {
+
+                                if (
+                                    me.images[me.images.length - 1].id !==
+                                    response.data.rows[0].lowestid
+                                ) {
                                     me.more = true;
                                 }
                             })
@@ -141,7 +144,7 @@ new Vue({
         imageMouseenter: function () {
             // storing the scroll position before clicking on modal
             scrollLocation = $(document).scrollTop();
-            console.log("scrollLocation", scrollLocation);
+            // console.log("scrollLocation", scrollLocation);
         },
 
         closeModalFn: function () {
@@ -156,14 +159,17 @@ new Vue({
             axios
                 .get(`/moreimages/${lastid}`)
                 .then(function (response) {
-                    for (let i = 0; i < response.data.length; i++) {
-                        me.images.push(response.data[i]);
-                    }
-                    if (
-                        response.data[response.data.length - 1].id ===
-                        response.data[0].lowestid
-                    ) {
-                        me.more = false;
+                    // console.log("response", response);
+                    if (response.data.length != 0) {
+                        for (let i = 0; i < response.data.length; i++) {
+                            me.images.push(response.data[i]);
+                        }
+                        if (
+                            response.data[response.data.length - 1].id ===
+                            response.data[0].lowestid
+                        ) {
+                            me.more = false;
+                        }
                     }
                 })
                 .catch(function (err) {
@@ -174,6 +180,21 @@ new Vue({
 
     mounted: function () {
         let me = this;
+
+        function infiniteScroll() {
+            if (
+                $(window).height() + $(document).scrollTop() >=
+                $(document).height() - 150
+            ) {
+                console.log("user has scrolled all the way down");
+                me.getMoreClick();
+            }
+            setTimeout(infiniteScroll, 500);
+        }
+        /////////////////////////////// INFINITE SCROLL TOGGLE ////
+        setTimeout(infiniteScroll, 500);
+        /////////////////////////////// INFINITE SCROLL TOGGLE ////
+
         window.addEventListener("hashchange", function () {
             me.selectedImage = location.hash.slice(1);
         });
