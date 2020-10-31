@@ -86,7 +86,7 @@ new Vue({
         username: "",
         file: null,
         errmsg: false,
-        more: true,
+        more: false,
         // selectedImage: null,
         selectedImage: location.hash.slice(1),
     },
@@ -176,10 +176,10 @@ new Vue({
             .then(function (response) {
                 me.images = response.data.rows;
                 if (
-                    response.data.rows[response.data.rows.length - 1].id ===
+                    response.data.rows[response.data.rows.length - 1].id !==
                     response.data.lowestId
                 ) {
-                    me.more = false;
+                    me.more = true;
                 }
             })
             .catch(function (err) {
