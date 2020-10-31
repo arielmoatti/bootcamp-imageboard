@@ -177,7 +177,7 @@ new Vue({
                 me.images = response.data.rows;
                 if (
                     response.data.rows[response.data.rows.length - 1].id !==
-                    response.data.lowestId
+                    response.data.rows[0].lowestid
                 ) {
                     me.more = true;
                 }

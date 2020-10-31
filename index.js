@@ -36,19 +36,9 @@ app.use(express.json());
 
 // ROUTES ///////
 app.get("/images", (req, res) => {
-    let lowestId;
-    db.getLowestId()
-        .then(({ rows }) => {
-            lowestId = rows[0].id;
-            // console.log("lowestId", lowestId);
-        })
-        .catch((err) => {
-            console.log("error in GET /images getLowestId()", err);
-        });
-
     db.getImages()
         .then(({ rows }) => {
-            res.json({ rows, lowestId });
+            res.json({ rows });
         })
         .catch((err) => {
             console.log("error in GET /images getImages()", err);

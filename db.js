@@ -4,7 +4,12 @@ let db = spicedPg("postgres:postgres:postgres@localhost:5432/imageboard");
 //// SELECT /////
 exports.getImages = () => {
     return db.query(`
-    SELECT * FROM images
+    SELECT *, (
+    SELECT id FROM images
+    ORDER BY id ASC
+    LIMIT 1
+    ) AS "lowestid" 
+    FROM images
     ORDER BY id DESC
     LIMIT 7;
     `);
