@@ -32,15 +32,12 @@ Vue.component("modal-component", {
             axios
                 .post("/addcomment", commentObj)
                 .then(function (response) {
-                    // console.log("response", response);
                     if (response.data.success) {
                         me.imgComments.unshift(response.data.rows[0]);
-                        // console.log("success is:", response.data.success);
                         me.errmsg = false;
                         me.cmtText = "";
                         me.cmtUser = "";
                     } else {
-                        // console.log("success is: ", response.data.success);
                         me.errmsg = true;
                     }
                 })
@@ -59,7 +56,6 @@ Vue.component("modal-component", {
             axios
                 .get(`/getall/${this.selectedImage}`)
                 .then(function (response) {
-                    console.log("response", response);
                     if (response.data.length != 0) {
                         me.imgDetails = response.data[0];
                         for (let i = 0; i < response.data.length; i++) {
@@ -87,7 +83,6 @@ new Vue({
         file: null,
         errmsg: false,
         more: false,
-        // selectedImage: null,
         selectedImage: location.hash.slice(1),
     },
     methods: {
@@ -104,15 +99,25 @@ new Vue({
                 .post("/upload", formData)
                 .then(function (response) {
                     if (response.data.success) {
-                        me.images.unshift(response.data.rows[0]);
-                        // console.log("success is:", response.data.success);
+                        axios
+                            .get("/images")
+                            .then(function (response) {
+                                me.images = response.data.rows;
+                                let lastid = me.images[me.images.length - 1].id;
+                                if (lastid !== response.data.rows[0].lowestid) {
+                                    me.more = true;
+                                }
+                            })
+                            .catch(function (err) {
+                                console.log("error in axios GET /images", err);
+                            });
+
                         me.errmsg = false;
                         me.file = null;
                         me.title = "";
                         me.description = "";
                         me.username = "";
                     } else {
-                        // console.log("success is: ", response.data.success);
                         me.errmsg = true;
                     }
                 })
@@ -125,25 +130,16 @@ new Vue({
             this.file = e.target.files[0]; //grabbing the file from the choose file button
         },
 
-        // imageClick: function (e) {
-        //     this.selectedImage = e;
-        //     // console.log("selected image id: ", this.selectedImage);
-        // },
-
         hideMessage: function () {
             this.errmsg = false;
         },
 
         closeModalFn: function () {
-            // this.selectedImage = null;
             location.hash = "";
         },
 
         getMore: function () {
-            // console.log("more clicked!");
-            // console.log("images array", this.images);
             let lastid = this.images[this.images.length - 1].id;
-            // console.log("lastid", lastid);
             let me = this;
             axios
                 .get(`/moreimages/${lastid}`)
@@ -167,7 +163,6 @@ new Vue({
     mounted: function () {
         let me = this;
         window.addEventListener("hashchange", function () {
-            //
             me.selectedImage = location.hash.slice(1);
         });
 

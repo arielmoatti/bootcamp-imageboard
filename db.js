@@ -26,7 +26,7 @@ exports.getAllDetails = (imageid) => {
         LEFT JOIN comments
         ON images.id = comments.image_id
         WHERE images.id = $1
-        ORDER BY comments.id DESC
+        ORDER BY comments.id DESC;
         `,
         [imageid]
     );
@@ -39,7 +39,11 @@ exports.addImage = (url, username, title, description) => {
         `
         INSERT INTO images (url, username, title, description)
         VALUES ($1, $2, $3, $4)
-        RETURNING *
+        RETURNING *, (
+        SELECT id FROM images
+        ORDER BY id ASC
+        LIMIT 1
+        ) AS "lowestid";
         `,
         [url, username, title, description]
     );
@@ -51,7 +55,7 @@ exports.addComment = (comment, username, imageid) => {
         INSERT INTO comments (comment, username, image_id)
         VALUES ($1, $2, $3)
         RETURNING
-        id AS cmnt_id, comment, created_at AS cmnt_time, username AS cmnt_writer
+        id AS cmnt_id, comment, created_at AS cmnt_time, username AS cmnt_writer;
         `,
         [comment, username, imageid]
     );
