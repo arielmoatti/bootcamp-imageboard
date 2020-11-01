@@ -14,28 +14,31 @@
         <div id="images-form">
             <form action="">
                 <label for="file-upload" @mousedown=hideMessage class="custom-file-upload" :class="[file ? 'file-loaded' : '']">
-                    <i class="fa fa-cloud-upload"></i> {{ file ? file.name : 'select image'}}
+                    <i class="fa fa-cloud-upload"></i> {{ file ? '&nbsp;&nbsp;'+file.name : ' &nbsp; &nbsp; select image'}}
                 </label>
                 <input @change="handleChange" id="file-upload" type="file" name="file" accept="image/*">                
-                <input v-model="title" @mousedown=hideMessage type="text" name="title" placeholder="give your image a title" autocomplete="off">
-                <input v-model="description" @mousedown=hideMessage type="text" name="description" placeholder="put some description here" size="50" autocomplete="off">
-                <input v-model="username" @mousedown=hideMessage type="text" name="username" placeholder="fill in your name" autocomplete="off">
+                <input v-model="title" @mousedown=hideMessage type="text" name="title" placeholder="image title *" autocomplete="off">
+                <input v-model="description" @mousedown=hideMessage type="text" name="description" placeholder="description" size="50" autocomplete="off">
+                <input v-model="username" @mousedown=hideMessage type="text" name="username" placeholder="uploader name *" autocomplete="off">
                 <button @click="submitImage">submit</button>
-                <p v-if="errmsg" style="color:red">you cannot submit empty fields...</p>
+                <p v-if="errmsg" @mousedown=hideMessage>you cannot submit empty fields...</p>
             </form>
         </div>
 
         <div class="image-board">
             <div v-for="image in images" :key="image.id">
-                <a class="image-piece" :href="'#'+ image.id" @mouseenter="imageMouseenter">
-                    <div class="image-container" >
-                        <img v-bind:src="image.url">
-                    </div>
+                <div class="image-card">
+                    <a :href="'#'+ image.id" @mouseenter="imageMouseenter">
+                        <div class="img-container" >
+                            <img v-bind:src="image.url">
+                        </div>
+                    </a>
                     <div class=text-container>
                         <p>{{image.title}}</p>
                     </div>
-                </a>
+                </div>
             </div>
+        </div>
 
             <modal-component
             v-if="selectedImage"
@@ -43,7 +46,6 @@
             @close="closeModalFn"
             ></modal-component>
 
-        </div>
         <!-- <p id="more-btn" v-if="more" @click="getMoreClick">more...</p> -->
     </div>
 
@@ -64,8 +66,8 @@
                 
                 <div id="comments-form">
                     <form action="">                                
-                        <input v-model="cmtText" type="text" name="cmtText" size="50" placeholder="type your comment here..." autocomplete="off">
-                        <input v-model="cmtUser" type="text" name="cmtUser" size="10" placeholder="your name" autocomplete="off">
+                        <input v-model="cmtText" type="text" name="cmtText" size="50" placeholder="comment *" autocomplete="off">
+                        <input v-model="cmtUser" type="text" name="cmtUser" size="10" placeholder="user name *" autocomplete="off">
                         <button @click="submitComment">submit</button>
                     </form>
                 </div>
