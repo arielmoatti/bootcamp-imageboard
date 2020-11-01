@@ -1,7 +1,4 @@
 let scrollLocation;
-
-// console.log($);
-
 ////Vue Components /////
 Vue.component("modal-component", {
     template: "#modal-template",

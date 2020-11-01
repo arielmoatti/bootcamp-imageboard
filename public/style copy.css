@@ -1,0 +1,319 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    font-family: "Titillium Web", sans-serif;
+}
+
+body {
+    background-color: #141710;
+    /* min-height: 95vh; */
+}
+
+a {
+    text-decoration: none;
+}
+/* header {
+    display: flex;
+    height: 150px;
+    background-color: peru;
+} */
+
+/* footer {
+    background-color: darkolivegreen;
+    height: 150px;
+    position: fixed;
+    bottom: 0;
+} */
+
+#main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+#images-form {
+    background-color: #2f3d19;
+    padding: 20px;
+    width: 100%;
+}
+
+/* ///////////////////// input fields settings ////////////////////// */
+
+input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    color: whitesmoke;
+    box-sizing: border-box;
+    /* font-family: "Montserrat", sans-serif; */
+    font-size: 16px;
+    margin: 15px;
+    /* width: 100%; */
+    /* text-align: center; */
+}
+
+:focus {
+    outline: none;
+}
+
+::placeholder {
+    color: whitesmoke;
+    opacity: 0.4;
+}
+
+:focus::placeholder {
+    opacity: 0.2;
+    color: #6f251f;
+    transition: 500ms;
+}
+
+input:-webkit-autofill {
+    -webkit-transition: "color 9999s ease-out, background-color 9999s ease-out";
+    -webkit-transition-delay: 9999s;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 2px solid #ccc;
+    /* background-color: pink; */
+    display: inline-block;
+    color: whitesmoke;
+    opacity: 0.4;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.file-loaded {
+    background-color: grey;
+    border: 3px solid green;
+    color: green;
+    opacity: 1;
+}
+
+/* ///////////////////// imageboard settings ////////////////////// */
+
+.image-board {
+    /* border: 2px solid grey; */
+    padding-left: 50px;
+    display: flex;
+    flex-wrap: wrap;
+
+    /* justify-content: center; */
+}
+
+.image-piece {
+    /* border: 2px solid green; */
+    margin: 15px;
+    width: 300px;
+    height: 300px;
+    /* display: flex;
+    flex-direction: column;
+    align-items: center; */
+
+    display: grid;
+    grid-template-rows: 3fr 1fr;
+    justify-items: center;
+    /* align-content: center; */
+    /* justify-content: center; */
+    /* vertical-align: middle; */
+}
+
+.image-container {
+    /* border-radius: 50%; */
+    /* border-radius: 7px; */
+
+    /* width: 75%;
+    height: 100%; */
+
+    width: 300px;
+    height: 300px;
+    /* border: 3px ridge #140c21; */
+    /* box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.8); */
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    filter: saturate(100%);
+    transition: filter 0.5s;
+    transition: transform 400ms;
+}
+
+.image-container:hover {
+    filter: saturate(20%);
+    transform: scale(1.05);
+}
+
+img {
+    max-height: 100%;
+    /* min-width: 100%; */
+}
+
+.text-container {
+    /* border: 1px solid blue; */
+    display: flex;
+    flex-direction: column;
+    /* vertical-align: middle; */
+    justify-content: center;
+}
+
+.text-container > p {
+    /* border: 2px solid red; */
+    /* margin-top: 20px; */
+    font-size: 16px;
+    order: 1;
+    text-align: center;
+    align-self: center;
+    /* text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.8); */
+    color: #ccc5b9;
+}
+
+/* ///////////////////// modal settings ////////////////////// */
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(6px);
+}
+
+.modal {
+    background-color: whitesmoke;
+    padding: 30px;
+    border-radius: 7px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* height: max-content; */
+    min-width: 50vw;
+    /* max-width: 90vh; */
+    max-height: 90vh;
+    /* width: max-content; */
+    transform: translate(-50%, -50%);
+    z-index: 12;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* overflow: hidden; */
+}
+
+.modal-details {
+    /* border: 1px solid purple; */
+    display: grid;
+    grid-template-columns: 55% 40%;
+    column-gap: 20px;
+    justify-items: start;
+    padding-bottom: 20px;
+    overflow: hidden;
+    width: 100%;
+    /* padding-right: 20px; */
+    /* justify-items: center; */
+    /* display: flex;
+    flex-direction: row;
+    align-items: center; */
+}
+
+.modal-img-cont {
+    /* border: 1px solid green; */
+
+    width: 100%;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.8);
+    overflow: hidden;
+}
+
+.modal-img-cont img {
+    width: auto;
+    /* width: 100%; */
+}
+
+.modal-text {
+    /* border: 1px solid blue; */
+    width: 95%;
+    padding-right: 20px;
+    display: flex;
+    flex-direction: column;
+    /* align-content: flex-start; */
+    flex-wrap: wrap;
+}
+
+.by-user {
+    font-size: 10px;
+    font-style: italic;
+    /* align-self: flex-end; */
+    text-align: right;
+}
+
+.comments-cont {
+    /* border: 1px solid grey; */
+    width: 100%;
+    /* padding: 10px; */
+    margin-top: 20px;
+    max-height: 10em;
+    overflow: auto;
+}
+
+.comment-box {
+    background-color: steelblue;
+    border-radius: 7px;
+    padding: 10px;
+    margin-top: 5px;
+}
+.close-btn {
+    background-color: #7748bd;
+    color: whitesmoke;
+    cursor: pointer;
+    margin-top: 20px;
+    padding: 10px 30px;
+    border-radius: 7px;
+    align-self: center;
+}
+
+.close-btn:hover {
+    background-color: navy;
+    color: whitesmoke;
+    transition: all 300ms;
+}
+
+#comments-form {
+    background-color: tomato;
+    border-radius: 7px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#comments-form input {
+    border-bottom: 1px solid whitesmoke;
+    color: black;
+    box-sizing: border-box;
+    /* font-family: "Montserrat", sans-serif; */
+    /* width: 10em; */
+    font-size: 14px;
+    margin: 10px;
+}
+
+#comments-form form {
+    /* background-color: cadetblue; */
+    /* width: 100%; */
+}
+
+#more-btn {
+    background-color: olivedrab;
+    color: whitesmoke;
+    cursor: pointer;
+    margin: 20px;
+    padding: 10px 30px;
+    border-radius: 7px;
+    align-self: center;
+    border: 1px solid darkgreen;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.8);
+}
