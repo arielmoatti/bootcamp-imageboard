@@ -13,15 +13,15 @@
     <div id="main">
         <div id="images-form">
             <form action="">
-                <label for="file-upload" @mousedown=hideMessage class="custom-file-upload" :class="[file ? 'file-loaded' : '']">
+                <label for="file-upload" @click=hideMessage class="custom-file-upload" :class="[file ? 'file-loaded' : '']">
                     <i class="fa fa-cloud-upload"></i> {{ file ? '&nbsp;&nbsp;'+file.name : ' &nbsp; &nbsp; select image'}}
                 </label>
                 <input @change="handleChange" id="file-upload" type="file" name="file" accept="image/*">                
-                <input v-model="title" @mousedown=hideMessage type="text" name="title" placeholder="image title *" autocomplete="off">
-                <input v-model="description" @mousedown=hideMessage type="text" name="description" placeholder="description" size="50" autocomplete="off">
-                <input v-model="username" @mousedown=hideMessage type="text" name="username" placeholder="uploader name *" autocomplete="off">
+                <input v-model="title" @click=hideMessage type="text" name="title" placeholder="image title *" autocomplete="off">
+                <input v-model="description" @click=hideMessage type="text" name="description" placeholder="description" size="50" autocomplete="off">
+                <input v-model="username" @click=hideMessage type="text" name="username" placeholder="uploader name *" autocomplete="off">
                 <button @click="submitImage">submit</button>
-                <p v-if="errmsg" @mousedown=hideMessage>you cannot submit empty fields...</p>
+                <p v-if="errmsg" @click=hideMessage>you cannot submit empty fields...</p>
             </form>
         </div>
 
@@ -44,6 +44,7 @@
             v-if="selectedImage"
             :selected-image="selectedImage"
             @close="closeModalFn"
+            
             ></modal-component>
 
         <p id="more-btn" v-if="more" @click="getMoreClick">more...</p>
@@ -66,11 +67,11 @@
                 
                 <div id="comments-form">
                     <form action="">                                
-                        <input v-model="cmtText" type="text" name="cmtText" size="50" placeholder="comment *" autocomplete="off">
-                        <input v-model="cmtUser" type="text" name="cmtUser" size="10" placeholder="user name *" autocomplete="off">
+                        <input v-model="cmtText" @click=hideMessageModal type="text" name="cmtText" size="50" placeholder="comment *" autocomplete="off">
+                        <input v-model="cmtUser" @click=hideMessageModal type="text" name="cmtUser" size="10" placeholder="user name *" autocomplete="off">
                         <button @click="submitComment">submit</button>
+                        <p v-if="errmsgmodal" @click=hideMessageModal>you cannot submit empty fields...</p>
                     </form>
-                    <p v-if="errmsg" @mousedown=hideMessage>you cannot submit empty fields...</p>
                 </div>
                 
                 <div class="comments-cont">                            

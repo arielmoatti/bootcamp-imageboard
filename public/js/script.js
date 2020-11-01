@@ -9,7 +9,7 @@ Vue.component("modal-component", {
             imgComments: [],
             cmtText: "",
             cmtUser: "",
-            errmsg: false,
+            errmsgmodal: false,
         };
     },
     watch: {
@@ -35,11 +35,11 @@ Vue.component("modal-component", {
                 .then(function (response) {
                     if (response.data.success) {
                         me.imgComments.unshift(response.data.rows[0]);
-                        me.errmsg = false;
+                        me.errmsgmodal = false;
                         me.cmtText = "";
                         me.cmtUser = "";
                     } else {
-                        me.errmsg = true;
+                        me.errmsgmodal = true;
                     }
                 })
                 .catch(function (err) {
@@ -51,6 +51,9 @@ Vue.component("modal-component", {
             this.$emit("close");
         },
 
+        hideMessageModal: function () {
+            this.errmsgmodal = false;
+        },
         renderModal: function () {
             let me = this;
 
