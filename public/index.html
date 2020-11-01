@@ -43,46 +43,52 @@
             <modal-component
             v-if="selectedImage"
             :selected-image="selectedImage"
-            @close="closeModalFn"
-            
+            @close="closeModalFn"            
             ></modal-component>
-
+        <!-- -------------------------- more button ------------------------ -->
         <p id="more-btn" v-if="more" @click="getMoreClick">more...</p>
+        <!-- -------------------------- more button ------------------------ -->
     </div>
 
     <script id="modal-template" type="text/x-template">
         <div>
             <div class="overlay" @click="closeModal"></div>
             <div class="modal" v-on:keyup.esc="closeModal">
+                
                 <div class="modal-details">
-                    <div class="modal-img-cont">
-                        <img :src="imgDetails.url" alt="" srcset="">
-                    </div>
-                    <div class="modal-text">
-                        <h2>{{ imgDetails.title }}</h2>
+
+                    <div id="modal-left">
+                        <h1>{{ imgDetails.title }}</h1>
+                            <div class="modal-img-cont">
+                                <img :src="imgDetails.url" alt="" srcset="">
+                            </div>
                         <h3>{{ imgDetails.description }}  </h3>
                         <p class="by-user">uploaded by {{ imgDetails.username }}</p>
                     </div>
-                </div>
                 
-                <div id="comments-form">
-                    <form action="">                                
-                        <input v-model="cmtText" @click=hideMessageModal type="text" name="cmtText" size="50" placeholder="comment *" autocomplete="off">
-                        <input v-model="cmtUser" @click=hideMessageModal type="text" name="cmtUser" size="10" placeholder="user name *" autocomplete="off">
-                        <button @click="submitComment">submit</button>
-                        <p v-if="errmsgmodal" @click=hideMessageModal>you cannot submit empty fields...</p>
-                    </form>
-                </div>
                 
-                <div class="comments-cont">                            
-                    <!-- <h3>comment section</h3> -->
-                    <div class="comment-box" v-for="cmt in imgComments" v-if="cmt.cmnt_id">                                
-                        <p>{{ cmt.comment }}</p>
-                        <p class="by-user">written by {{ cmt.cmnt_writer }} at {{cmt.cmnt_time}} </p>
+                    <div id="modal-right">
+                        <div id="comments-form">
+                            <form action="">                                
+                                <input v-model="cmtText" @click=hideMessageModal type="text" name="cmtText" size="40" placeholder="comment *" autocomplete="off">
+                                <input v-model="cmtUser" @click=hideMessageModal type="text" name="cmtUser" size="20" placeholder="user name *" autocomplete="off">
+                                <button @click="submitComment">submit</button>
+                                <p v-if="errmsgmodal" @click=hideMessageModal>you cannot submit empty fields...</p>
+                            </form>
+                        </div>
+                        
+                        <div class="comments">                            
+                            <!-- <h3>comment section</h3> -->
+                            <div class="comment-box" v-for="cmt in imgComments" v-if="cmt.cmnt_id">                                
+                                <p>{{ cmt.comment }}</p>
+                                <p class="by-user">written by {{ cmt.cmnt_writer }} at {{cmt.cmnt_time}} </p>
+                            </div>
+                        </div>
                     </div>
-                </div>
+
+                </div> <!-- closes modal-details -->
                 <p @click="closeModal" class="close-btn">close</p>
-            </div>
+            </div> <!-- closes modal -->
         </div>
     </script>
 

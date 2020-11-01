@@ -191,9 +191,9 @@ new Vue({
             }
             setTimeout(infiniteScroll, 500);
         }
-        /////////////////////////////// INFINITE SCROLL TOGGLE ////
+        /////////////////////////////// INFINITE SCROLL TOGGLE /////////////////////
         // setTimeout(infiniteScroll, 500);
-        /////////////////////////////// INFINITE SCROLL TOGGLE ////
+        /////////////////////////////// INFINITE SCROLL TOGGLE /////////////////////
 
         window.addEventListener("hashchange", function () {
             me.selectedImage = location.hash.slice(1);
