@@ -46,7 +46,7 @@
             @close="closeModalFn"
             ></modal-component>
 
-        <!-- <p id="more-btn" v-if="more" @click="getMoreClick">more...</p> -->
+        <p id="more-btn" v-if="more" @click="getMoreClick">more...</p>
     </div>
 
     <script id="modal-template" type="text/x-template">
@@ -70,8 +70,8 @@
                         <input v-model="cmtUser" type="text" name="cmtUser" size="10" placeholder="user name *" autocomplete="off">
                         <button @click="submitComment">submit</button>
                     </form>
+                    <p v-if="errmsg" @mousedown=hideMessage>you cannot submit empty fields...</p>
                 </div>
-                <p v-if="errmsg" style="color:red">you cannot submit empty fields...</p>
                 
                 <div class="comments-cont">                            
                     <!-- <h3>comment section</h3> -->

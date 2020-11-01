@@ -189,7 +189,7 @@ new Vue({
             setTimeout(infiniteScroll, 500);
         }
         /////////////////////////////// INFINITE SCROLL TOGGLE ////
-        setTimeout(infiniteScroll, 500);
+        // setTimeout(infiniteScroll, 500);
         /////////////////////////////// INFINITE SCROLL TOGGLE ////
 
         window.addEventListener("hashchange", function () {
