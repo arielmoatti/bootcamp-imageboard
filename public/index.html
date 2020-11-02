@@ -4,14 +4,14 @@
     <title>Image Board</title>
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <script src="https://kit.fontawesome.com/6146a55896.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/ac25152698.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <!-- <header>
-        <h1>my image board</h1>        
     </header> -->
     <div id="main">
         <div id="images-form">
+            <h1 id="header">Staircases Around the World</h1>        
             <form action="">
                 <label for="file-upload" @click=hideMessage class="custom-file-upload" :class="[file ? 'file-loaded' : '']">
                     <i class="fa fa-cloud-upload"></i> {{ file ? '&nbsp;&nbsp;'+file.name : ' &nbsp; &nbsp; select image'}}
@@ -46,7 +46,7 @@
             @close="closeModalFn"            
             ></modal-component>
         <!-- -------------------------- more button ------------------------ -->
-        <p id="more-btn" v-if="more" @click="getMoreClick">more...</p>
+        <!-- <p id="more-btn" v-if="more" @click="getMoreClick">more...</p> -->
         <!-- -------------------------- more button ------------------------ -->
     </div>
 

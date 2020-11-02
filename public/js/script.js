@@ -54,6 +54,7 @@ Vue.component("modal-component", {
         hideMessageModal: function () {
             this.errmsgmodal = false;
         },
+
         renderModal: function () {
             let me = this;
 
@@ -159,7 +160,6 @@ new Vue({
             axios
                 .get(`/moreimages/${lastid}`)
                 .then(function (response) {
-                    // console.log("response", response);
                     if (response.data.length != 0) {
                         for (let i = 0; i < response.data.length; i++) {
                             me.images.push(response.data[i]);
@@ -192,7 +192,7 @@ new Vue({
             setTimeout(infiniteScroll, 500);
         }
         /////////////////////////////// INFINITE SCROLL TOGGLE /////////////////////
-        // setTimeout(infiniteScroll, 500);
+        setTimeout(infiniteScroll, 500);
         /////////////////////////////// INFINITE SCROLL TOGGLE /////////////////////
 
         window.addEventListener("hashchange", function () {

@@ -41,12 +41,20 @@ p {
     background-color: #344083;
     position: fixed;
     z-index: 10;
-    padding: 20px;
+    padding: 10px;
     width: 100%;
+}
+
+#header {
+    font-size: 28px;
+    color: #f3eff5;
+    text-align: center;
+    text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.8);
 }
 
 #images-form p,
 #comments-form p {
+    font-size: 20px;
     color: #fe7a71;
     display: inline-block;
     padding-left: 10px;
@@ -116,6 +124,7 @@ input[type="file"] {
     color: #344083;
     transition: 500ms;
 }
+
 .file-loaded {
     background-color: #f3eff5;
     /* border: 3px solid green; */
@@ -129,7 +138,7 @@ input[type="file"] {
 .image-board {
     /* border: 2px solid grey; */
     padding: 100px 50px 30px 50px;
-    margin-top: 30px;
+    margin-top: 45px;
     display: flex;
     flex-wrap: wrap;
     /* justify-items: center; */
