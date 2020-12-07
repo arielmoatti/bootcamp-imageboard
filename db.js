@@ -1,7 +1,7 @@
 let spicedPg = require("spiced-pg");
 let db = spicedPg("postgres:postgres:postgres@localhost:5432/imageboard");
 
-//// SELECT /////
+///////////////// SELECT /////////////////////////
 exports.getImages = () => {
     return db.query(`
     SELECT *, (
@@ -32,7 +32,34 @@ exports.getAllDetails = (imageid) => {
     );
 };
 
-//// INSERT /////
+exports.getLowestId = () => {
+    return db.query(
+        `
+        SELECT id FROM images
+        ORDER BY id ASC
+        LIMIT 1;
+        `
+    );
+};
+
+exports.getMoreImages = (lastid) => {
+    return db.query(
+        `
+        SELECT url, title, id, (
+        SELECT id FROM images
+        ORDER BY id ASC
+        LIMIT 1
+        ) AS "lowestid" 
+        FROM images
+        WHERE id < $1
+        ORDER BY id DESC
+        LIMIT 5;
+        `,
+        [lastid]
+    );
+};
+
+////////////////// INSERTS //////////////////////
 
 exports.addImage = (url, username, title, description) => {
     return db.query(
@@ -58,32 +85,5 @@ exports.addComment = (comment, username, imageid) => {
         id AS cmnt_id, comment, created_at AS cmnt_time, username AS cmnt_writer;
         `,
         [comment, username, imageid]
-    );
-};
-
-exports.getLowestId = () => {
-    return db.query(
-        `
-        SELECT id FROM images
-        ORDER BY id ASC
-        LIMIT 1;
-        `
-    );
-};
-
-exports.getMoreImages = (lastid) => {
-    return db.query(
-        `
-        SELECT url, title, id, (
-        SELECT id FROM images
-        ORDER BY id ASC
-        LIMIT 1
-        ) AS "lowestid" 
-        FROM images
-        WHERE id < $1
-        ORDER BY id DESC
-        LIMIT 5;
-        `,
-        [lastid]
     );
 };

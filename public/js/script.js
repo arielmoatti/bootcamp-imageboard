@@ -186,7 +186,7 @@ new Vue({
                 $(window).height() + $(document).scrollTop() >=
                 $(document).height() - 150
             ) {
-                console.log("user has scrolled all the way down");
+                // console.log("user has scrolled all the way down");
                 me.getMoreClick();
             }
             setTimeout(infiniteScroll, 500);

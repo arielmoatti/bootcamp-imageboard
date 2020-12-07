@@ -92,7 +92,7 @@ app.post("/addcomment", (req, res) => {
                 success: true,
                 rows,
             });
-            console.log("comment added!");
+            // console.log("comment added!");
         });
     } else {
         res.json({
