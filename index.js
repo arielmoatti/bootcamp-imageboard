@@ -115,4 +115,6 @@ app.get("/moreimages/:lastid", (req, res) => {
         });
 });
 //
-app.listen(8080, () => console.log("image board up and running"));
+app.listen(process.env.PORT || 8080, () =>
+    console.log("image board up and running")
+);

@@ -1,5 +1,8 @@
 let spicedPg = require("spiced-pg");
-let db = spicedPg("postgres:postgres:postgres@localhost:5432/imageboard");
+let db = spicedPg(
+    process.env.DATABASE_URL ||
+        "postgres:postgres:postgres@localhost:5432/imageboard"
+);
 
 ///////////////// SELECT /////////////////////////
 exports.getImages = () => {
